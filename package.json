@@ -1,0 +1,11 @@
+{
+    "name": "gas-utilities",
+    "author": {
+        "name": "Oleg Valter"
+    },
+    "description": "Utilities for Google Apps Script projects",
+    "devDependencies": {
+        "jsdoc": "^3.6.4",
+        "mocha": "^7.1.1"
+    }
+}
