@@ -1,15 +1,9 @@
 /**
- * @typedef {Object} AsStringParams
- * @property {}
- */
-
-/**
  * Gets file data as string
  * @param {String} id 
- * @param {AsStringParams} [params]
  * @returns {String}
  */
-const asString = (id,params) => {
+const asString = (id) => {
 
     try {
         const file = DriveApp.getFileById(id);
