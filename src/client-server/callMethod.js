@@ -8,7 +8,7 @@
 const runMethod = (name, methodName, ...args) => {
     const instance = this[name];
     return instance[methodName](...args);
-}
+};
 
 /**
  * Client-side code for calling utility function
