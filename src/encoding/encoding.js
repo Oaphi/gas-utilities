@@ -1,7 +1,7 @@
 /**
- * Base64 url encodes input (useful for RS256 alg)
- * @param {String|Byte[]} input 
- * @returns {String}
+ * @summary Base64 url encodes input (useful for RS256 alg)
+ * @param {string|number[]} input 
+ * @returns {string}
  */
 const base64urlEncode = (input) => {
     const encoded = Utilities.base64Encode(input);
@@ -14,15 +14,27 @@ const base64urlEncode = (input) => {
 };
 
 /**
- * Base64 url decodes input
- * @param {String} encoded
- * @returns {String}
+ * @summary Base64 url decodes input
+ * @param {string} encoded
+ * @param {GoogleAppsScript.Utilities.Charset} [charset]
+ * @returns {number[]}
  */
-const base64urlDecode = (encoded) => {
+const base64urlDecode = (encoded, charset) => {
     const withPluses = encoded.replace(/\-/g, '+');
     const withSlashes = withPluses.replace(/_/g, '/');
 
-    const decoded = Utilities.base64Decode(withSlashes);
+    return charset ?
+        Utilities.base64Decode(withSlashes, charset) :
+        Utilities.base64Decode(withSlashes);
+};
 
-    return decoded;
+/**
+ * @summary gets a base64 decoded data as string
+ * @param {string} encoded
+ * @param {GoogleAppsScript.Utilities.Charset} [charset]
+ * @returns {string}
+ */
+const getBase64UrlDecodedStr = (encoded, charset) => {
+    const decoded = base64urlDecode(encoded, charset);
+    return Utilities.newBlob(decoded).getDataAsString();
 };
