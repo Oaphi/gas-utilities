@@ -47,3 +47,30 @@ const getFile: FileGetter = ({
     return null;
   }
 };
+
+declare interface GetFolderOptions {
+  id?: string;
+  onError?: (err: Error) => void;
+  onSuccess?: (file: GoogleAppsScript.Drive.Folder) => any;
+}
+
+declare interface FolderGetter {
+  (options: GetFolderOptions): GoogleAppsScript.Drive.Folder;
+}
+
+const getFolder: FolderGetter = ({
+  id,
+  onSuccess,
+  onError = (err) => console.warn(err),
+}) => {
+  try {
+    const folder = DriveApp.getFolderById(id);
+
+    typeof onSuccess === "function" && onSuccess(folder);
+
+    return folder;
+  } catch (error) {
+    onError(error);
+    return DriveApp.getRootFolder();
+  }
+};
